@@ -121,7 +121,6 @@
                         </goals>
                     </execution>
 
-                    <!--
                     <execution>
                         <id>test-clojure</id>
                         <phase>test</phase>
@@ -129,10 +128,9 @@
                             <goal>test</goal>
                         </goals>
                     </execution>
-                    -->
                 </executions>
                 <configuration>
-                    <testScript>src/test/clojure/maunaloa/test1.clj</testScript>
+                    <testScript>src/test/clojure/vega/test1.clj</testScript>
                     <testSourceDirectories>
                         <testSourceDirectory>src/test/clojure</testSourceDirectory>
                     </testSourceDirectories>
