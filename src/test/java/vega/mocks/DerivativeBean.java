@@ -1,8 +1,10 @@
 package vega.mocks;
 
+import oahu.exceptions.NotImplementedException;
 import oahu.financial.Derivative;
 import oahu.financial.OptionCalculator;
 import oahu.financial.Stock;
+import oahu.financial.StockPrice;
 
 import java.util.Date;
 
@@ -15,7 +17,7 @@ import java.util.Date;
 public class DerivativeBean implements Derivative {
     private final OptionCalculator calculator;
 
-    Stock parent;
+    StockPrice parent;
 
     public DerivativeBean(String ticker,
                                     int opType,
@@ -23,7 +25,7 @@ public class DerivativeBean implements Derivative {
                                     double buy,
                                     double sell,
                                     double days,
-                                    Stock parent,
+                                    StockPrice parent,
                                     OptionCalculator calculator) {
         this.ticker = ticker;
         this.opType = opType;
@@ -35,7 +37,7 @@ public class DerivativeBean implements Derivative {
         this.calculator = calculator;
     }
 
-    public Stock getParent() {
+    public StockPrice getParent() {
         return parent;
     }
 
@@ -46,6 +48,12 @@ public class DerivativeBean implements Derivative {
     public Date getExpiry() {
         return expiry;
     }
+
+    @Override
+    public String getSeries() {
+        throw new NotImplementedException();
+    }
+
     public void setExpiry(Date value) {
         expiry = value;
     }
@@ -58,6 +66,12 @@ public class DerivativeBean implements Derivative {
     public int getOpType() {
         return opType;
     }
+
+    @Override
+    public String getOpTypeStr() {
+        throw new NotImplementedException();
+    }
+
     public void setOpType(int value) {
         opType = value;
     }
@@ -106,6 +120,12 @@ public class DerivativeBean implements Derivative {
     public String getTicker() {
         return ticker;
     }
+
+    @Override
+    public int getOid() {
+        throw new NotImplementedException();
+    }
+
     public void setTicker(String value) {
         ticker = value;
     }

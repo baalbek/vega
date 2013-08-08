@@ -4,7 +4,7 @@
   (:import
     [cern.jet.random Normal]
     [cern.jet.random.engine MersenneTwister]
-    [oahu.financial Derivative Stock]
+    [oahu.financial Derivative StockPrice]
     [oahu.exceptions BinarySearchException]))
 
 (def norm (Normal. 0.0 1.0 (MersenneTwister.)))

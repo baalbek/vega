@@ -1,8 +1,11 @@
 package vega.mocks;
 
-import oahu.financial.Stock;
 
 import java.util.Date;
+
+import oahu.exceptions.NotImplementedException;
+import oahu.financial.Stock;
+import oahu.financial.StockPrice;
 import org.joda.time.DateMidnight;
 
 /**
@@ -11,7 +14,7 @@ import org.joda.time.DateMidnight;
  * Date: 11/21/12
  * Time: 10:43 PM
  */
-public class StockBean implements Stock {
+public class StockBean implements StockPrice {
 
     private int id;
     private int tickerId;
@@ -92,6 +95,12 @@ public class StockBean implements Stock {
     public int getVolume() {
         return volume;
     }
+
+    @Override
+    public Stock getStock() {
+        throw new NotImplementedException();
+    }
+
     public void setVolume(int value) {
         volume = value;
     }

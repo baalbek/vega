@@ -32,7 +32,9 @@
         <dependency>
             <groupId>rcstadheim</groupId>
             <artifactId>oahu</artifactId>
+            <!--
             <version>2.2-LIGHT</version>
+            -->
         </dependency>
 
 
