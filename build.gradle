@@ -1,0 +1,33 @@
+apply plugin: 'clojure'
+group = 'rcstadheim'
+archivesBaseName = 'vega'
+version = '2.0'
+
+aotCompile = true
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://clojars.org/repo'
+    }
+}
+          
+
+dependencies {
+    compile project(':oahu')
+    compile 'colt:colt:1.2.0'
+    compile 'org.clojure:clojure:1.5.1'
+}
+
+buildscript {
+    repositories {
+        maven {
+            url 'http://clojars.org/repo'
+        }
+    }
+
+    dependencies {
+        classpath 'clojuresque:clojuresque:1.5.8'
+    }
+}
+
