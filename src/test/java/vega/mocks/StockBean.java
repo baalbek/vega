@@ -101,6 +101,11 @@ public class StockBean implements StockPrice {
         throw new NotImplementedException();
     }
 
+    @Override
+    public void assign(StockPrice stockPrice) {
+        throw new NotImplementedException();
+    }
+
     public void setVolume(int value) {
         volume = value;
     }

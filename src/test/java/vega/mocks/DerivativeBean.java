@@ -54,6 +54,31 @@ public class DerivativeBean implements Derivative {
         throw new NotImplementedException();
     }
 
+    @Override
+    public double getWatermark() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void setWatermark(double v) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void updateWatermark(double v) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public double getDiffFromBought() {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public void setDiffFromBought(double v) {
+        throw new NotImplementedException();
+    }
+
     public void setExpiry(Date value) {
         expiry = value;
     }
