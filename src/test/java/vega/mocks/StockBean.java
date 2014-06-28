@@ -6,7 +6,7 @@ import java.util.Date;
 import oahu.exceptions.NotImplementedException;
 import oahu.financial.Stock;
 import oahu.financial.StockPrice;
-import org.joda.time.DateMidnight;
+//import org.joda.time.DateMidnight;
 
 /**
  * Created with IntelliJ IDEA.
@@ -38,17 +38,20 @@ public class StockBean implements StockPrice {
     }
     //region Time
     //private Date dx = null;
-    private DateMidnight dxJoda;
+    //private DateMidnight dxJoda;
+    private Date dx;
 
     public Date getDx() {
-        return dxJoda.toDate();
+        //return dxJoda.toDate();
+        return dx;
     }
 
     public void setDx(Date value) {
-        dxJoda = new DateMidnight(value);
+        //dxJoda = new DateMidnight(value);
+        dx = value;
     }
 
-
+    /*
     public DateMidnight getDxJoda() {
         return dxJoda;
     }
@@ -56,6 +59,7 @@ public class StockBean implements StockPrice {
     public void setDxJoda(DateMidnight value) {
         this.dxJoda = value;
     }
+    */
     //endregion Time
 
 

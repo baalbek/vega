@@ -1,7 +1,7 @@
 (ns vega.financial.calculator.testblackscholes
   (:import
     [java.util Date]
-    [org.joda.time DateMidnight]
+    ;[org.joda.time DateMidnight]
     [vega.mocks StockBean DerivativeBean]
     [oahu.financial Stock Derivative])
   (:require [vega.financial.calculator.BlackScholes :as B])
