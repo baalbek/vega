@@ -3,7 +3,7 @@ apply plugin: 'clojure'
 
 group = 'rcstadheim'
 archivesBaseName = 'vega'
-version = '2.0'
+version = '2.1'
 
 aotCompile = true
 
