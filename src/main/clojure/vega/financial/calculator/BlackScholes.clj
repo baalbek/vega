@@ -163,7 +163,7 @@
          opx-f (partial
                  (price-fn cb)
                   (-> cb .getStockPrice .getCls)
-                  (-> cb .getDerivative .getX cb)
+                  (-> cb .getDerivative .getX)
                   (/ (.getDays cb) 365.0))
            ]
     (binary-search opx-f 0.4 price 0.01)
