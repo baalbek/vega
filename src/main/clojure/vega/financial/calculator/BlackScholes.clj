@@ -4,7 +4,7 @@
   (:import
     [cern.jet.random Normal]
     [cern.jet.random.engine MersenneTwister]
-    [oahu.financial Derivative StockPrice]
+    [oahu.financial Derivative DerivativePrice StockPrice]
     [oahu.exceptions BinarySearchException]))
 
 (def norm (Normal. 0.0 1.0 (MersenneTwister.)))
@@ -106,15 +106,15 @@
       (:end bounds)
       (binary-search-run f bounds target tolerance))))
 
-(defn price-fn [^Derivative deriv]
-  (if (= Derivative/CALL (.getOpType deriv))
+(defn price-fn [^DerivativePrice deriv]
+  (if (= Derivative/CALL (-> deriv .getDerivative .getOpType))
         call-price
         put-price))
 
 
-(defn spot-finder [^Derivative d]
+(defn spot-finder [^DerivativePrice d]
   (let [f (price-fn d)
-        x (.getX d)
+        x (-> d .getDerivative .getX)
         t (.getYears d)
         sigma (.getIvBuy d)]
     (fn [spot]
@@ -124,37 +124,37 @@
 ;;-------------------------- Interface methods ---------------------------
 ;;------------------------------------------------------------------------
 
-(defn -delta [this, ^Derivative cb]
+(defn -delta [this, ^DerivativePrice cb]
   (let [
          iv (.getIvSell cb)
-         new-spot (+ 1.0 (-> cb .getParent .getValue))
+         new-spot (+ 1.0 (-> cb .getStockPrice .getValue))
          new-price ((price-fn cb)
                      new-spot
-                     (.getX cb)
+                     (-> cb .getDerivative .getX)
                      (.getYears cb)
                      iv)]
     (- new-price (.getSell cb))))
 
 
-(defn -spread [this, ^Derivative deriv]
+(defn -spread [this, ^DerivativePrice deriv]
   0.0)
 
 
-(defn -breakEven [this, ^Derivative deriv]
+(defn -breakEven [this, ^DerivativePrice deriv]
   0.0)
 
 
 
 (defn -stockPriceFor [this
                     ^double optionPrice
-                    ^Derivative deriv]
+                    ^DerivativePrice deriv]
   (let [f (spot-finder deriv)
-        start-val (-> deriv .getParent .getCls)]
+        start-val (-> deriv .getStockPrice .getCls)]
     (binary-search f start-val optionPrice 0.1)))
 
 
 (defn -iv [this
-          ^Derivative cb
+          ^DerivativePrice cb
           priceType]
   (let [
          price (if (= Derivative/BUY priceType)
@@ -162,8 +162,8 @@
                      (.getSell cb))
          opx-f (partial
                  (price-fn cb)
-                  (-> cb .getParent .getCls)
-                  (.getX cb)
+                  (-> cb .getStockPrice .getCls)
+                  (-> cb .getDerivative .getX cb)
                   (/ (.getDays cb) 365.0))
            ]
     (binary-search opx-f 0.4 price 0.01)
