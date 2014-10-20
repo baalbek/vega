@@ -1,6 +1,7 @@
 package vega.mocks;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import oahu.exceptions.NotImplementedException;
@@ -91,6 +92,12 @@ public class StockBean implements StockPrice {
     public double getCls() {
         return cls;
     }
+
+    @Override
+    public double getMarketValue() {
+        return 0;
+    }
+
     public void setCls(double value) {
         cls = value;
     }
@@ -103,6 +110,16 @@ public class StockBean implements StockPrice {
     @Override
     public Stock getStock() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public LocalDate getLocalDx() {
+        return null;
+    }
+
+    @Override
+    public int getOid() {
+        return 0;
     }
 
     @Override

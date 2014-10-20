@@ -87,6 +87,12 @@ public class DerivativeBean implements Derivative {
     //------------- OpType
     //--------------------------------------------------
     private int opType;
+
+    @Override
+    public Stock getStock() {
+        return null;
+    }
+
     @Override
     public int getOpType() {
         return opType;
@@ -149,6 +155,11 @@ public class DerivativeBean implements Derivative {
     @Override
     public int getOid() {
         throw new NotImplementedException();
+    }
+
+    @Override
+    public void setOid(int oid) {
+
     }
 
     public void setTicker(String value) {
