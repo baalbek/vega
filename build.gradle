@@ -3,7 +3,8 @@ apply plugin: 'clojure'
 
 group = 'rcstadheim'
 archivesBaseName = 'vega'
-version = '4.1'
+
+version = "$major.$minor.1"
 
 aotCompile = true
 
@@ -17,9 +18,9 @@ repositories {
 
 dependencies {
     compile project(':oahu')
-    compile 'colt:colt:1.2.0'
-    compile 'org.clojure:clojure:1.6.0'
-    compile 'org.clojure:clojure-contrib:1.2.0'
+    compile "colt:colt:$coltVersion"
+    compile "org.clojure:clojure:$clojureVersion"
+    compile "org.clojure:clojure-contrib:$clojureContribVersion"
 }
 
 buildscript {
@@ -30,7 +31,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'clojuresque:clojuresque:1.5.8'
+        classpath "clojuresque:clojuresque:$clojuresqueVersion"
     }
 }
 
