@@ -14,7 +14,12 @@ repositories {
         url 'http://clojars.org/repo'
     }
 }
-          
+
+/*
+jar {
+    from sourceSets.main.allSource
+}
+*/
 
 dependencies {
     compile project(':oahu')
