@@ -40,7 +40,3 @@ buildscript {
     }
 }
 
-task cj(type: Copy, dependsOn: [build]) {
-    into '../maunaloa/dist' from new File("$libsDir/vega-${version}.jar")
-    into '../netfondsjanitor/dist' from new File("$libsDir/vega-${version}.jar")
-}
