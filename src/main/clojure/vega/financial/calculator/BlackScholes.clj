@@ -168,3 +168,9 @@
            ]
     (binary-search opx-f 0.4 price 0.01)
   ))
+
+(defn -callPrice [this spot x t sigma]
+  (call-price spot x t sigma))
+
+(defn -callPrice [this spot x t sigma]
+  (put-price spot x t sigma))
