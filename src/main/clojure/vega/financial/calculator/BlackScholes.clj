@@ -172,5 +172,5 @@
 (defn -callPrice [this spot x t sigma]
   (call-price spot x t sigma))
 
-(defn -callPrice [this spot x t sigma]
+(defn -putPrice [this spot x t sigma]
   (put-price spot x t sigma))
