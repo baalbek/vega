@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Itrend extends AFn {
     @Override
+    @SuppressWarnings("unchecked")
     public Object invoke(Object data, Object days) {
         long daysx = (Long)days;
         List<Double> datax = (List<Double>)data;

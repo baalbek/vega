@@ -8,6 +8,8 @@ version = "$major.$minor.0"
 
 aotCompile = true
 
+def jarFile = new File("$libsDir/vega-${version}.jar")
+
 repositories {
     mavenCentral()
     maven {
@@ -26,6 +28,15 @@ dependencies {
     compile "colt:colt:$coltVersion"
     compile "org.clojure:clojure:$clojureVersion"
     compile "org.clojure:clojure-contrib:$clojureContribVersion"
+}
+
+task cj(dependsOn: [build]) << {
+    copy {
+        into '../maunaloa/dist' from jarFile
+    }
+    copy {
+        into '../netfondsjanitor/dist' from jarFile
+    }
 }
 
 buildscript {

@@ -169,6 +169,24 @@
     (binary-search opx-f 0.4 price 0.01)
   ))
 
+(defn -ivCall [this
+               spot
+               x
+               t
+               price]
+  (let [opx-f (partial
+                call-price spot x t)]
+    (binary-search opx-f 0.4 price 0.01)))
+
+(defn -ivPut [this
+               spot
+               x
+               t
+               price]
+  (let [opx-f (partial
+                put-price spot x t)]
+    (binary-search opx-f 0.4 price 0.01)))
+
 (defn -callPrice [this spot x t sigma]
   (call-price spot x t sigma))
 

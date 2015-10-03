@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class CyberCycle extends AFn {
     @Override
+    @SuppressWarnings("unchecked")
     public Object invoke(Object data, Object days) {
         double alpha = Common.calcAlpha((Long)days);
 
