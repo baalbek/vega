@@ -1,53 +1,14 @@
 apply plugin: 'java'
-apply plugin: 'clojure'
 
 group = 'rcstadheim'
 archivesBaseName = 'vega'
 
 version = "$major.$minor.0"
 
-aotCompile = true
-
 def jarFile = new File("$libsDir/vega-${version}.jar")
 
 repositories {
     mavenCentral()
-    maven {
-        url 'http://clojars.org/repo'
-    }
 }
 
-/*
-jar {
-    from sourceSets.main.allSource
-}
-*/
-
-dependencies {
-    compile project(':oahu')
-    compile "colt:colt:$coltVersion"
-    compile "org.clojure:clojure:$clojureVersion"
-    compile "org.clojure:clojure-contrib:$clojureContribVersion"
-}
-
-task cj(dependsOn: [build]) << {
-    copy {
-        into '../maunaloa/dist' from jarFile
-    }
-    copy {
-        into '../netfondsjanitor/dist' from jarFile
-    }
-}
-
-buildscript {
-    repositories {
-        maven {
-            url 'http://clojars.org/repo'
-        }
-    }
-
-    dependencies {
-        classpath "clojuresque:clojuresque:$clojuresqueVersion"
-    }
-}
 
