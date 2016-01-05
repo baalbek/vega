@@ -11,4 +11,8 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    compile project(':oahu')
+    compile "org.clojure:clojure:$clojureVersion"
+}
 
