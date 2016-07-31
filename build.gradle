@@ -4,7 +4,6 @@ group = 'rcstadheim'
 
 version = "$major.$minor.0"
 
-def jarFile = new File("$libsDir/vega-${version}.jar")
 
 repositories {
     mavenCentral()
@@ -13,5 +12,11 @@ repositories {
 dependencies {
     compile project(':oahu')
     compile "org.clojure:clojure:$clojureVersion"
+}
+
+def jarFile = new File("$libsDir/vega-${version}.jar")
+
+task copyToParentProject(type: Copy, dependsOn: jar) {
+    into parentDist from jarFile
 }
 
