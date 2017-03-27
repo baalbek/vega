@@ -4,7 +4,7 @@ apply from: '/home/rcs/opt/java/gradlecommon/depversions.gradle'
 
 group = 'rcstadheim'
 
-version = "2.0"
+version = '1.0'
 
 ext.parentDist = '/home/rcs/opt/java/harborview/dist'
 
@@ -37,7 +37,12 @@ sourceSets {
 
 dependencies {
     compile project(':oahu')
+
+    //------------------- Clojure -------------------
     compile "org.clojure:clojure:$clojureVersion"
+
+    //------------------- Colt -------------------
+    runtime "colt:colt:$coltVersion"
 }
 
 ext.myLibName = "vega-${version}.jar"

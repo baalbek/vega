@@ -5,6 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
 		[org.clojure/clojure "1.8.0"]
+		[colt/colt "1.2.0"]
 
     ]
   ;:main ^:skip-aot harborview.webapp
@@ -17,7 +18,7 @@
   :aot :all
   ;:test {:resource-paths ["test/resources" "dist"]}
   :resource-paths [
-		"/home/rcs/opt/java/oahu/build/libs/oahu-5.3.1.jar"
+		"/home/rcs/opt/java/oahu/build/libs/oahu-1.0.jar"
 
                    ]
   :profiles {:uberjar {:aot :all}})
