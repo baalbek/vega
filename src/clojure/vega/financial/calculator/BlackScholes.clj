@@ -20,9 +20,9 @@
       (Math/sqrt t))))
 
 (defn calc-D1 [^double spot
-              ^double x
-              ^double t
-              ^double sigma]
+               ^double x
+               ^double t
+               ^double sigma]
   (let [
         a (Math/log (/ spot x))
         b (* t
@@ -108,7 +108,7 @@
 
 (defn price-fn [^DerivativePrice deriv]
   (if (= Derivative/CALL (-> deriv .getDerivative .getOpType))
-        call-price
+      call-price
         put-price))
 
 
@@ -129,7 +129,7 @@
          iv (.getIvSell cb)
          new-spot (+ 1.0 (-> cb .getStockPrice .getValue))
          new-price ((price-fn cb)
-                     new-spot
+                    new-spot
                      (-> cb .getDerivative .getX)
                      (/ (.getDays cb) 365.0)
                      iv)]
@@ -146,28 +146,27 @@
 
 
 (defn -stockPriceFor [this
-                    ^double optionPrice
-                    ^DerivativePrice deriv]
+                      ^double optionPrice
+                      ^DerivativePrice deriv]
   (let [f (spot-finder deriv)
         start-val (-> deriv .getStockPrice .getCls)]
     (binary-search f start-val optionPrice 0.1)))
 
 
 (defn -iv [this
-          ^DerivativePrice cb
-          priceType]
+           ^DerivativePrice cb
+           priceType]
   (let [
          price (if (= Derivative/BUY priceType)
-                     (.getBuy cb)
-                     (.getSell cb))
+                   (.getBuy cb)
+                   (.getSell cb))
          opx-f (partial
                  (price-fn cb)
-                  (-> cb .getStockPrice .getCls)
-                  (-> cb .getDerivative .getX)
-                  (/ (.getDays cb) 365.0))
-           ]
-    (binary-search opx-f 0.4 price 0.01)
-  ))
+                 (-> cb .getStockPrice .getCls)
+                 (-> cb .getDerivative .getX)
+                 (/ (.getDays cb) 365.0))]
+    (binary-search opx-f 0.4 price 0.01)))
+
 
 (defn -ivCall [this
                spot
