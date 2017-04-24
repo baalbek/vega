@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-apply from: '/home/rcs/opt/java/gradlecommon/depversions.gradle'
+apply from: '../gradlecommon/depversions.gradle'
 
 group = 'rcstadheim'
 
