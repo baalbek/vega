@@ -74,6 +74,8 @@
         cmp-2 (if (= fcat :incr) >= <=)]
     (if (cmp-1 r target)
       (loop [s (* start-val 2.0)]
+        (if (= s Double/POSITIVE_INFINITY)
+          (throw (BinarySearchException. "Infinity")))
         (let [r2 (f s)]
           (if (cmp-2 r2 target)
             {:start start-val :end s :end-res r2 :fcat fcat}
@@ -89,7 +91,7 @@
     (loop [lo (:start bounds)
            hi (:end bounds)
            counter 0]
-      ;(prn lo hi)
+      ;(prn "Lo: " lo  ", hi: " hi ", counter: " counter)
       (if (> counter max-iter)
         (throw (BinarySearchException. (str "Max iterations (" max-iter ") reached"))))
       (let [mid (/ (+ hi lo) 2.0)
@@ -165,6 +167,7 @@
                  (-> cb .getStockPrice .getCls)
                  (-> cb .getDerivative .getX)
                  (/ (.getDays cb) 365.0))]
+    ;(prn "Option: " (-> cb .getDerivative .getTicker) ", price: " price)
     (binary-search opx-f 0.4 price 0.01)))
 
 
