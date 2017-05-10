@@ -109,9 +109,10 @@
       (binary-search-run f bounds target tolerance))))
 
 (defn price-fn [^DerivativePrice deriv]
-  (if (= Derivative/CALL (-> deriv .getDerivative .getOpType))
-      call-price
-        put-price))
+  (let [optype (-> deriv .getDerivative .getOpType)]
+    (if (= oahu.financial.Derivative$OptionType/CALL optype)
+        call-price
+          put-price)))
 
 
 (defn spot-finder [^DerivativePrice d]
