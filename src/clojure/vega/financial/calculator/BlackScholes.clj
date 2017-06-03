@@ -112,14 +112,14 @@
   (let [optype (-> deriv .getDerivative .getOpType)]
     (if (= oahu.financial.Derivative$OptionType/CALL optype)
         call-price
-          put-price)))
+        put-price)))
 
 
 (defn spot-finder [^DerivativePrice d]
   (let [f (price-fn d)
         x (-> d .getDerivative .getX)
         t (/ (.getDays d) 365.0)
-        sigma (.getIvBuy d)]
+        sigma (-> d .getIvBuy .get)]
     (fn [spot]
       (f spot x t sigma))))
 
@@ -129,7 +129,7 @@
 
 (defn -delta [this, ^DerivativePrice cb]
   (let [
-         iv (.getIvSell cb)
+         iv (-> cb .getIvSell .get)
          new-spot (+ 1.0 (-> cb .getStockPrice .getValue))
          new-price ((price-fn cb)
                     new-spot

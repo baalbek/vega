@@ -18,7 +18,7 @@
   :aot :all
   ;:test {:resource-paths ["test/resources" "dist"]}
   :resource-paths [
-		"/home/rcs/opt/java/oahu/build/libs/oahu-1.0.jar"
+		"/home/rcs/opt/java/oahu/build/libs/oahu-1.1.jar"
 
                    ]
   :profiles {:uberjar {:aot :all}})
