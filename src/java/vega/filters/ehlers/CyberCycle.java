@@ -31,7 +31,7 @@ public class CyberCycle extends AFn {
         double f2 = 1.0 - alpha;
         double f22 = f2 * f2;
 
-        for (int i = 1; i < 20; i++) {
+        for (int i = 1; i < 20; ++i) {
             double resultValue = ave(smooth.get(i-1),
                                      smooth.get(i),
                                      curHead,
