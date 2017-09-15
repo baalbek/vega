@@ -22,25 +22,32 @@ public class SuperSmoother extends AFn {
 
         double twoPoleFactor = 1.414;
 
-        double a1 = Math.exp(-twoPoleFactor * 3.14159 / cyclePeriodx);
+        double f = (twoPoleFactor * Math.PI) / cyclePeriod;
 
-        double rads180 = Math.toRadians(180);
+        double a = Math.exp(-f);
 
-        double b1 = 2 * a1 * Math.cos(twoPoleFactor * rads180 / cyclePeriodx);
+        duoble c2 = 2*a*cos(f);
 
-        double c3 = -a1*a1;
+        double c3 = -a*a;
 
-        double c1 = 1 - b1 - c3;
+        double c1 = 1 - c2 - c3;
 
         result.add(datax.get(0));
 
         result.add(datax.get(1));
 
-        for (int i = 1; i<datax.size(); ++i) {
+        for (int i = 2; i<datax.size(); ++i) {
+
             double close = datax.get(i);
             double close_1 = datax.get(i-1);
+            double filt_1 = result.get(i-1);
+            double filt_2 = result.get(i-2);
+            double filt = (0.5*c1*(close + close_1)) + (c2*filt_1) + (c3*filt_2);
+
+            result.add(filt);
         }
 
+        // return S[0] = c1*(Data[0]+Data[1])*0.5 + c2*S[1] + c3*S[2];
         return result;
     }
 }
@@ -57,6 +64,30 @@ public class SuperSmoother extends AFn {
     }
 */
 
+        /*
+        double a1 = Math.exp(-twoPoleFactor * Math.PI / cyclePeriodx);
+
+        double rads180 = Math.toRadians(180);
+
+        double b1 = 2 * a1 * Math.cos(twoPoleFactor * rads180 / cyclePeriodx);
+
+        double c3 = -a1*a1;
+
+        double c1 = 1 - b1 - c3;
+
+        result.add(datax.get(0));
+
+        result.add(datax.get(1));
+
+        for (int i = 2; i<datax.size(); ++i) {
+            double close = datax.get(i);
+            double close_1 = datax.get(i-1);
+            double filt_1 = result.get(i-1);
+            double filt_2 = result.get(i-2);
+            double filt = (0.5*c1*(close + close_1)) + (b1*filt_1) + (c3*filt_2);
+            result.add(filt);
+        }
+        */
 /*
 Vars: a1(0), b1(0), c1(0), c2(0), c3(0), Filt(0);
 a1 = expvalue(-1.414*3.14159 / 10);
