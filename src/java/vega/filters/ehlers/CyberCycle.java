@@ -13,13 +13,19 @@ import java.util.List;
  *
  */
 public class CyberCycle extends AFn {
+
+    private double alpha;
+
+    public CyberCycle(long days) {
+        alpha = Common.calcAlpha(days);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
-    public Object invoke(Object data, Object days) {
-        double alpha = Common.calcAlpha((Long)days);
+    public Object invoke(Object data) {
 
         List<Double> datax = (List<Double>)data;
-        List<Double> smooth = Common.calcSmooth(datax);
+        //List<Double> smooth = Common.calcSmooth(datax);
         List<Double> result = new ArrayList<>();
 
         double curHead = 0.0;
@@ -32,8 +38,8 @@ public class CyberCycle extends AFn {
         double f22 = f2 * f2;
 
         for (int i = 1; i < 20; ++i) {
-            double resultValue = ave(smooth.get(i-1),
-                                     smooth.get(i),
+            double resultValue = ave(datax.get(i-1),
+                                     datax.get(i),
                                      curHead,
                                      f1,
                                      f2);
@@ -46,10 +52,10 @@ public class CyberCycle extends AFn {
 
         Func5<Double,Double,Double,Double,Double,Double> ccFn = createCalcCycleFn(f12,f2,f22);
 
-        for (int i = 20; i < smooth.size(); ++i) {
-            double c = smooth.get(i-2);
-            double d = smooth.get(i-1);
-            double e = smooth.get(i);
+        for (int i = 20; i < datax.size(); ++i) {
+            double c = datax.get(i-2);
+            double d = datax.get(i-1);
+            double e = datax.get(i);
             double cycleVal = ccFn.apply(a,b,c,d,e);
             result.add(cycleVal);
             a = b;

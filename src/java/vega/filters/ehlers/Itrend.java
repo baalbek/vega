@@ -11,14 +11,18 @@ import java.util.List;
  *
  */
 public class Itrend extends AFn {
+
+    private double alpha;
+
+    public Itrend(long days) {
+        alpha = Common.calcAlpha(days);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
-    public Object invoke(Object data, Object days) {
-        long daysx = (Long)days;
+    public Object invoke(Object data) {
         List<Double> datax = (List<Double>)data;
         int count = datax.size();
-
-        double alpha = Common.calcAlpha(daysx);
 
         List<Double> result = new ArrayList<Double>();
 

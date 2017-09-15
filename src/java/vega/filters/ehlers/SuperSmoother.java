@@ -10,11 +10,15 @@ import java.util.List;
  *
  */
 public class SuperSmoother extends AFn {
+
+    private int cyclePeriod;
+
+    public SuperSmoother(int cyclePeriod) {
+        this.cyclePeriod = cyclePeriod;
+    }
     @Override
     @SuppressWarnings("unchecked")
-    public Object invoke(Object data, Object cyclePeriod) {
-
-        long cyclePeriodx = (Long)cyclePeriod;
+    public Object invoke(Object data) {
 
         List<Double> datax = (List<Double>)data;
 
@@ -22,7 +26,7 @@ public class SuperSmoother extends AFn {
 
         double twoPoleFactor = 1.414;
 
-        double f = (twoPoleFactor * Math.PI) / cyclePeriodx;
+        double f = (twoPoleFactor * Math.PI) / cyclePeriod;
 
         double a = Math.exp(-f);
 
