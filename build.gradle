@@ -4,7 +4,7 @@ apply from: '../gradlecommon/depversions.gradle'
 
 group = 'rcstadheim'
 
-version = '1.0'
+version = '1.1'
 
 ext.parentDist = '/home/rcs/opt/java/harborview/dist'
 
