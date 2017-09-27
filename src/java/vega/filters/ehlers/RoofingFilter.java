@@ -9,18 +9,20 @@ import java.util.List;
 public class RoofingFilter extends AFn {
 
     private int highPassPeriod = 48;
+    private int lowPassPeriod = 10;
 
-    private SuperSmoother smooth;
+    // private SuperSmoother smooth;
 
     public RoofingFilter() {
-        smooth = new SuperSmoother(10);
+        // smooth = new SuperSmoother(10);
     }
 
 
     public RoofingFilter(int highPassPeriod,
                          int lowPassPeriod) {
         this.highPassPeriod = highPassPeriod;
-        smooth = new SuperSmoother(lowPassPeriod);
+        this.lowPassPeriod = lowPassPeriod;
+        // smooth = new SuperSmoother(lowPassPeriod);
     }
 
     /*
@@ -66,13 +68,27 @@ public class RoofingFilter extends AFn {
 
         double alpha33 = alpha3 * alpha3;
 
+        double twoPoleFactor = 1.414;
+
+        double f = (twoPoleFactor * Math.PI) / lowPassPeriod;
+
+        double a = Math.exp(-f);
+
+        double c2 = 2 * a * Math.cos(f);
+
+        double c3 = -a * a;
+
+        double c1 = 1 - c2 - c3;
 
         List<Double> datax = (List<Double>)data;
+
+        List<Double> hp = new ArrayList<>();
 
         List<Double> result = new ArrayList<>();
 
         for (int i = 0; i < 2; ++i) {
             result.add(datax.get(i));
+            hp.add(datax.get(i));
         }
 
         int sz = datax.size();
@@ -85,19 +101,30 @@ public class RoofingFilter extends AFn {
 
             double close_2 = datax.get(i-2);
 
-            double hp_1 = result.get(i-1);
+            double hp_1 = hp.get(i-1);
 
-            double hp_2 = result.get(i-2);
+            double hp_2 = hp.get(i-2);
 
-            double res_1 = alpha33 * (close- (2.0*close_1) + close_2);
+            double hpRes_1 = alpha33 * (close- (2.0*close_1) + close_2);
 
-            double res_2 = 2.0 * alpha2 * hp_1;
+            double hpRes_2 = 2.0 * alpha2 * hp_1;
 
-            double res_3 = alpha22 * hp_2;
+            double hpRes_3 = alpha22 * hp_2;
 
-            result.add(res_1 - res_2 - res_3);
+            double hp_0 = hpRes_1 + hpRes_2 - hpRes_3;
+
+            double res_1 = c1 * (hp_0 + hp_1) / 2.0;
+
+            double res_2 = c2 * result.get(i-1);
+
+            double res_3 = c3 * result.get(i-2);
+
+            hp.add(hp_0);
+
+            result.add(res_1 + res_2 + res_3);
         }
 
-        return smooth.invoke(result);
+        return result;
+        // return smooth.invoke(result);
     }
 }
