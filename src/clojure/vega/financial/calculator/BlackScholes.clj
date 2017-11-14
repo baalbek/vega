@@ -7,6 +7,8 @@
     [oahu.financial Derivative DerivativePrice StockPrice]
     [oahu.exceptions BinarySearchException]))
 
+(def days-in-year 365.0)
+
 (def norm (Normal. 0.0 1.0 (MersenneTwister.)))
 
 (def interest-rate 0.05)
@@ -118,7 +120,7 @@
 (defn spot-finder [^DerivativePrice d]
   (let [f (price-fn d)
         x (-> d .getDerivative .getX)
-        t (/ (.getDays d) 365.0)
+        t (/ (.getDays d) days-in-year)
         sigma (-> d .getIvBuy .get)]
     (fn [spot]
       (f spot x t sigma))))
@@ -133,9 +135,9 @@
          new-spot (+ 1.0 (-> cb .getStockPrice .getValue))
          new-price ((price-fn cb)
                     new-spot
-                     (-> cb .getDerivative .getX)
-                     (/ (.getDays cb) 365.0)
-                     iv)]
+                    (-> cb .getDerivative .getX)
+                    (/ (.getDays cb) days-in-year)
+                    iv)]
     (- new-price (.getSell cb))))
 
 
@@ -167,7 +169,7 @@
                  (price-fn cb)
                  (-> cb .getStockPrice .getCls)
                  (-> cb .getDerivative .getX)
-                 (/ (.getDays cb) 365.0))]
+                 (/ (.getDays cb) days-in-year))]
     ;(prn "Option: " (-> cb .getDerivative .getTicker) ", price: " price)
     (binary-search opx-f 0.4 price 0.01)))
 
