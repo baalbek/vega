@@ -28,7 +28,7 @@ public class RoofingFilter extends AFn {
     /*
     {
     Roofing filter
-    © 2013 John F. Ehlers
+    2013 John F. Ehlers
     }
 
     Vars: alpha1(0), HP(0), a1(0), b1(0), c1(0), c2(0), c3(0), Filt(0), Filt2(0);
